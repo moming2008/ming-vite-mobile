@@ -15,7 +15,7 @@
       </div>
       <div class="user_target">
         <div v-for ="target_item in target_list" :key="target_item.index">
-            <span>{{ target_item.target }}</span>
+            <span class="target_number">{{ target_item.target }}</span>
             <br/>
             <span>{{ target_item.label }}</span>
           </div>
@@ -27,27 +27,49 @@
       <t-grid-item text="标题文字" :image="imgUrl" />
       <t-grid-item text="最多五个字" :image="imgUrl" />
     </t-grid>
+    <t-cell-group bordered>
+    <t-cell title="单行标题" arrow hover />
+    <t-cell title="单行标题" arrow hover required />
+    <t-cell title="单行标题" arrow hover>
+      <template #note>
+        <t-badge :count="16" />
+      </template>
+    </t-cell>
+    <t-cell title="单行标题" hover>
+      <template #note>
+        <t-switch :default-value="true" />
+      </template>
+    </t-cell>
+    <t-cell title="单行标题" note="辅助信息" arrow hover />
+    <t-cell title="单行标题" :left-icon="lockIcon" arrow hover />
+  </t-cell-group>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 import TitleBarLeft from '../components/TitleBarLeft.vue'
+
+import { h } from 'vue';
+import { LockOnIcon } from 'tdesign-icons-vue-next';
+import { Switch as TSwitch, Badge as TBadge } from 'tdesign-mobile-vue';
+
+const lockIcon = () => h(LockOnIcon);
 const imgUrl = 'https://tdesign.gtimg.com/miniprogram/images/example1.png'
 
 const target_list = ref([
-  {index:0,label:'target',target:12},
-  {index:1,label:'target',target:12},
-  {index:2,label:'target',target:12},
-  {index:3,label:'target',target:12}
+  {index:0,label:'关注',target:813},
+  {index:1,label:'被关注',target:987},
+  {index:2,label:'收藏',target:14},
+  {index:3,label:'浏览',target:1122}
 ])
 
 </script>
 
 <style>
 .avatar-example {
-  margin-left: 16px;
-  margin-top: 16px;
+  margin-left: 24px;
+  margin-top: 24px;
 }
 .grid-demo {
   margin-bottom: 16px;
@@ -64,15 +86,21 @@ const target_list = ref([
   .user_target{
     display: flex;
     text-align: center;
+    margin: 8px auto;
     &>div{
-      margin: 14px;
-      font-family:Montserrat-Bold;
-      color: #dbeaf3;
+      margin: 8px 18px;
+      font-family:Alibaba-PuHuiTi-Regular;
+      color: #0b5681;
+      .target_number{
+        font-size: 20px;
+        color: #ffffff;
+        font-family:Montserrat-Medium;
+      }
     }
 
   }
   .user_info {
-    margin-top: 12px;
+    margin-top: 20px;
     padding-left: 16px;
     display: flex;
     flex-direction: column;
